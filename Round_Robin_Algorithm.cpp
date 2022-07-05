@@ -60,7 +60,7 @@ int main()
 
          cout << g << "--P" << q.front()+1 << "--";
 
-         ll k = q.front(); // kon process
+         ll k = q.front(); 
          visited[k] = 1;
 
 
@@ -81,7 +81,6 @@ int main()
             {
                 visited[i] = 1;
                 q.push_back(v[i].p);
-                //cout << "Entering into queue :" << v1[i].p << endl;
             }
         }
 
