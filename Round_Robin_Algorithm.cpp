@@ -7,11 +7,6 @@ struct robin
 {
    ll p, a, c;
 };
-bool comp(robin x, robin y)
-{
-    return x.a < y.a ;
-}
-
 int main()
 {
     cout << "Enter the number of process :" << endl;
@@ -38,30 +33,24 @@ int main()
     for(int i=0;i<n;i++)
         cin >> arival[i];
 
-    vector<robin>v,v1;
-
+    vector<robin>v;
 
     for(int i=0;i<n;i++)
     {
         int h = cpu[i];
         v.push_back({i,arival[i],h});
-        //m[arival[i]] = i;
     }
-    v1 = v;
 
-    //ll min_index = m[0];
-
-    sort(v.begin(),v.end(),comp);
+    ll min_index = 1;
 
 
     deque<ll>q;
-
-    q.push_back(v[0].p);
-    //q.push_back(v[min_index].p);
+    q.push_back(v[min_index].p);
 
     ll visited[n];
 
     vector<ll>process,gantt;
+
 
      while(g<ss)
      {
@@ -75,29 +64,29 @@ int main()
          visited[k] = 1;
 
 
-        if(v1[k].c>=Q)
+        if(v[k].c>=Q)
         {
-            v1[k].c-=Q;
+            v[k].c-=Q;
             g+=Q;
         }
         else
         {
-            g+=v1[k].c;
-            v1[k].c=0;
+            g+=v[k].c;
+            v[k].c=0;
         }
 
         for(int i=0;i<n;i++)
         {
-            if(visited[v[i].p] !=1 && v[i].a <= g)
+            if(visited[i] !=1 && v[i].a <= g)
             {
-                visited[v[i].p] = 1;
+                visited[i] = 1;
                 q.push_back(v[i].p);
                 //cout << "Entering into queue :" << v1[i].p << endl;
             }
         }
 
         q.pop_front();
-        if(v1[k].c!=0)
+        if(v[k].c!=0)
             q.push_back(k);
      }
 
@@ -124,14 +113,14 @@ int main()
                  }
              }
          }
-         sum+=(first-v1[i].a);
+         sum+=(first-v[i].a);
          awt+=sum;
          atd+= (sum+cpu[i]);
-         cout << "Process "  << i+1 << ": " << "Waiting Time :" << sum << " Turnaround Time :" << sum+cpu[i]<< endl;
+               cout << "Process "  << i+1 << ": " << "Waiting Time :" << sum << " Turnaround Time :" << sum+cpu[i]<< endl;
      }
 
 
 
-    cout << "Average Waiting time :" << awt/n << endl;
+     cout << "Average Waiting time :" << awt/n << endl;
     cout << "Average Waiting time :" << atd/n << endl;
 }
